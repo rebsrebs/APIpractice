@@ -1,0 +1,52 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  margin: 0px;
+  height: 100vh;
+}
+
+.searchform {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.searchformitem {
+  padding: 5px;
+}
+
+#showmebtn {
+  background-color: pink;
+  border-radius: 5px;
+  border: solid 1px red;
+  box-shadow: 1px 5px 5px green;
+  margin-top: 2px;
+  margin-bottom: 20px;
+  padding: 3px;
+}
+
+#showmebtn:hover {
+  background-color: lightskyblue;
+}
+
+#showmebtn:active {
+  background-color: yellow;
+}
+
+/* .imagecontainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-color: red;
+  align-self: center;
+  justify-self: center;
+  padding: 10px;
+} */

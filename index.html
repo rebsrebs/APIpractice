@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- <div class="main"> -->
+
+    <form action="" class="searchform">
+      <label for="search" class="searchformitem">What kind of GIF do you want to see?</label>
+      <input type="text" class="searchformitem" id="search" placeholder="Enter search term.">
+      <button id="searchsubmit" type="button" class="searchformitem">Submit</button>
+    </form>
+
+    <button id="showmebtn">Show me another GIF!</button>
+    <img src="#">
+  <!-- </div> -->
+
+
+
+
+  <script>
+
+    const showMeBtn = document.getElementById('showmebtn');
+    const img = document.querySelector('img');
+
+    const showGIF = function(userSearchTerm) {
+      fetch(`https://api.giphy.com/v1/gifs/translate?api_key=dNW6NhV3umI5BEbDAYmtZDp44FPquBSg&s=${userSearchTerm}`, {mode: 'cors'})
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(response) {
+        img.src = response.data.images.original.url;
+      });
+    }
+
+    showGIF(cats);
+
+    showMeBtn.addEventListener('click',function(){
+      showGIF();
+    })
+
+    const updateShowMeBtnText = function() {
+      const searchTerm = 'cute cats';
+      showMeBtn.textContent= `Show me another ${searchTerm} GIF!`;
+    }
+  </script>
+</body>
+</html>
