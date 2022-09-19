@@ -12,6 +12,10 @@ body {
   height: 100vh;
 }
 
+img {
+  max-height: 70vh;
+}
+
 .searchform {
   display: flex;
   flex-direction: column;
