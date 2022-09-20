@@ -1,69 +1,62 @@
-const showMeBtn = document.getElementById('showmebtn');
-const img = document.querySelector('img');
-const searchSubmitBtn = document.getElementById('searchsubmit');
-const searchInput = document.getElementById('searchbar');
 const searchForm = document.getElementById('searchform');
+const searchInput = document.getElementById('searchbar');
+const searchSubmitBtn = document.getElementById('searchsubmit');
+const img = document.querySelector('img');
+const showMeBtn = document.getElementById('showmebtn');
+let currentKeyword;
 
-// function to show a GIF in the img element using a search term
-const showGIF = function(searchTerm) {
+// function to show a GIF in the img element using a keyword
+const showGIF = function(keyword) {
+  console.log(`showGIF function is running and the currentKeyword is ${keyword}.`);
   // fetch gifs with that search term
-  fetch(`https://api.giphy.com/v1/gifs/translate?api_key=dNW6NhV3umI5BEbDAYmtZDp44FPquBSg&s=${searchTerm}`, {mode: 'cors'})
+  fetch(`https://api.giphy.com/v1/gifs/translate?api_key=dNW6NhV3umI5BEbDAYmtZDp44FPquBSg&s=${keyword}`, {mode: 'cors'})
   .then(function(response) {
     return response.json();
   })
   // set the url as the img source
   .then(function(response) {
     img.src = response.data.images.original.url;
+    console.log(img.src);
   });
 }
 
-// function to add event listener to show me more gifs button
-const updateSMBEL = function(searchTerm){
-  console.log('updateSMBEL is running');
-  // add event listener to show me more gifs button
-  showMeBtn.addEventListener('click',function(){
-    console.log(`showMeMoreGifs button was clicked and will show GIFS of ${searchTerm}`);
-    showGIF(searchTerm);
-  });
+// function to update text of show me more button
+const updateShowMeBtnText = function(keyword) {
+  showMeBtn.textContent= `Show me another ${keyword} GIF!`;
 }
 
-// function to update show me more with search term
-const updateShowMeBtnText = function(searchTerm) {
-  showMeBtn.textContent= `Show me another ${searchTerm} GIF!`;
+// When show me more GIFS button is clicked
+const handleShowMeClick = function() {
+  console.log(`show me more GIFS was clicked and the currentKeyword is ${currentKeyword}.`);
+  showGIF(currentKeyword);
 }
 
-// WHEN SEARCH SUBMIT BUTTON IS CLICKED
-searchSubmitBtn.addEventListener('click',function(){
+// When search submit button is clicked
+const handleSearchSubmitClick = function() {
   console.log('The search submit button was clicked.');
-  // get search input value
-  const userSearchTerm = searchInput.value;
-  console.log(`Just before showGIF userSearchTerm is ${userSearchTerm}`);
-  // show GIF based on user search term
-  showGIF(userSearchTerm);
-  // update text of show me more GIFS button
-  console.log(`Just before updateShowMeBtnText userSearchTerm is ${userSearchTerm}`);
-  updateShowMeBtnText(userSearchTerm);
-  // remove event listener from show me more GIFS button
-  console.log(`Just before removeEventListener userSearchTerm is ${userSearchTerm}`);
-  showMeBtn.removeEventListener('click', updateSMBEL);
-  // put a new events listener on the show me more GIFS button
-  console.log(`Just before updateSMBEL userSearchTerm is ${userSearchTerm}`);
-  updateSMBEL(userSearchTerm);
+  // set current keyword with user submitted value
+  currentKeyword = searchInput.value;
+  // show GIF using current keyword
+  showGIF(currentKeyword);
+  // reset event listener for show me more GIFS button
+  showMeBtn.removeEventListener('click', handleShowMeClick);
+  showMeBtn.addEventListener('click', handleShowMeClick);
+  // update text of show me more GIFS button with current keyword
+  updateShowMeBtnText(currentKeyword);
   // reset search form
   searchForm.reset();
-})
+}
+
+// Add event listener to search submit button
+searchSubmitBtn.addEventListener('click', handleSearchSubmitClick);
 
 // when page loads
 const bodyOnloadFunction = function() {
   console.log('Page loaded.');
-  // show cats GIFS
-  showGIF('cats');
-  // update show me more GIFS button
-  updateShowMeBtnText('cats');
-  updateSMBEL('cats');
+  currentKeyword = 'cats';
+  showGIF(currentKeyword);
+  updateShowMeBtnText(currentKeyword);
+  showMeBtn.addEventListener('click', handleShowMeClick);
 }
 
-document.onLoad = bodyOnloadFunction();
-
-
-
+window.onload = bodyOnloadFunction();
