@@ -1,39 +1,94 @@
 * {
+  margin: 0px;
+  padding: 0px;
   box-sizing: border-box;
 }
 
+:root {
+  --margin-bottom: 40px;
+}
+
 body {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: 100px auto auto;
   align-items: center;
-  justify-content: center;
-  padding: 0px;
-  margin: 0px;
+  align-content: center;
+  justify-items: center;
   height: 100vh;
 }
 
-img {
-  max-height: 70vh;
+#searchform, #imgGIF, #showmebtn {
+  margin-bottom: var(--margin-bottom);
 }
 
 .searchform {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  /* background-color: pink; */
+  padding: 10px;
 }
 
-.searchformitem {
-  padding: 5px;
+#searchbarlabel {
+  font-size: 22px;
+  text-align: center;
+  margin-bottom: 10px;
 }
+
+#searchbarwrapper {
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:space-between;
+  background-color: yellow;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  border-radius: 15px;
+  border: 1px solid black;
+}
+
+#searchbar {
+  height: 3em;
+  min-width: 100px;
+  width: 100%;
+  border: none;
+  background-color: yellow;
+  font-size: 16px;
+  margin-right: 5px;
+}
+
+#searchsubmit {
+  /* height: 2em; */
+  background-color: yellow;
+  border-radius: 50px;
+  padding: 4px;
+}
+
+#searchsubmit:hover {
+  background-color: rgb(127, 206, 240);
+}
+
+#searchsubmit:active {
+  background-color: rgb(237, 195, 182);
+}
+
+/* .searchformitem {
+  padding: 5px;
+  align-self: center;
+} */
 
 #showmebtn {
   background-color: pink;
   border-radius: 5px;
   border: solid 1px red;
   box-shadow: 1px 5px 5px green;
-  margin-top: 2px;
-  margin-bottom: 20px;
   padding: 3px;
+  box-sizing: border-box;
 }
 
 #showmebtn:hover {
@@ -42,6 +97,10 @@ img {
 
 #showmebtn:active {
   background-color: yellow;
+}
+
+#imgGIF {
+  max-height: 70vh;
 }
 
 /* .imagecontainer {

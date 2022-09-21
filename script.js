@@ -1,7 +1,7 @@
 const searchForm = document.getElementById('searchform');
 const searchInput = document.getElementById('searchbar');
 const searchSubmitBtn = document.getElementById('searchsubmit');
-const img = document.querySelector('img');
+const img = document.getElementById('imgGIF');
 const showMeBtn = document.getElementById('showmebtn');
 let currentKeyword;
 

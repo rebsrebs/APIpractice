@@ -6,17 +6,24 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- <div class="main"> -->
-
-    <form action="" id="searchform" class="searchform">
-      <label for="search" class="searchformitem">What kind of GIF do you want to see?</label>
+  
+  
+  <form action="" id="searchform" class="searchform">
+    <!-- label for search bar -->
+    <label id="searchbarlabel" for="search" class="searchformitem">What kind of GIF do you want to see?</label>
+    <!-- search bar wrapper -->
+    <div id="searchbarwrapper">
+      <!-- search bar input -->
       <input type="text" class="searchformitem" id="searchbar" placeholder="Enter search term.">
-      <button id="searchsubmit" type="button" class="searchformitem">Submit</button>
-    </form>
+      <!-- search bar submit button -->
+      <img src="./images/search_blue.svg" alt="Submit Search" id="searchsubmit">
+    </div>
+  </form>
+  
+  <img id = "imgGIF" src="#">
 
-    <button id="showmebtn">Show me another GIF!</button>
-    <img src="#">
-  <!-- </div> -->
+  <button id="showmebtn">Show me another GIF!</button>
+  
 
   <script type="text/javascript" src="script.js"></script>
 </body>
