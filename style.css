@@ -86,11 +86,12 @@ body {
 
 #showmebtn {
   background-color: pink;
-  border-radius: 5px;
+  border-radius: 10px;
   border: solid 1px red;
   box-shadow: 1px 5px 5px green;
-  padding: 3px;
+  padding: 6px;
   box-sizing: border-box;
+  font-size: 25px;
 }
 
 #showmebtn:hover {
