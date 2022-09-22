@@ -9,6 +9,7 @@
 }
 
 body {
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,7 +42,7 @@ body {
   flex-direction: row;
   align-items: center;
   justify-content:space-between;
-  background-color: yellow;
+  /* background-color: yellow; */
   padding-right: 10px;
   padding-top: 1px;
   padding-bottom: 1px;
@@ -65,16 +66,14 @@ body {
 }
 
 #searchsubmit {
-  /* height: 2em; */
-  background-color: yellow;
-  border-radius: 70px;
-  padding: 4px;
+  height: 40px;
+  width: 40px;
+  background-color: white;
+  /* background-color: yellow; */
+  border-radius: 50px;
   border: none;
 }
 
-/* #searchsubmiticon {
-  padding: 4px;
-} */
 
 #searchsubmit:hover {
   background-color: rgb(127, 206, 240);
