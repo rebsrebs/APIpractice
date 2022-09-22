@@ -25,8 +25,14 @@ const showGIF = function(keyword) {
     img.src = response.data[0].images.original.url;
     // img.src = response.data.images.fixed_height.url;
     console.log(img.src);
+  })
+  .catch(function(err) {
+    console.log(err);
+    searchBarError.textContent = 'Not found. Please try another search term.';
   });
 }
+
+
 
 // function to update text of show me more button
 const updateShowMeBtnText = function(keyword) {
