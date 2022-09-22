@@ -68,7 +68,7 @@ const handleSearchSubmit = function() {
     // reset search form
     searchForm.reset();
   } else {
-    searchBarError.textContent = "Search cannot be blank.";
+    searchBarError.textContent = "Search cannot be blank!";
   }
 }
 

@@ -32,7 +32,8 @@ body {
 #searchbarlabel {
   font-size: 22px;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
+  color:rgb(12, 79, 39);
 }
 
 #searchbarwrapper {
@@ -49,7 +50,7 @@ body {
   /* border-radius: 15px; */
   border: 1px solid red;
   max-width: 500px;
-  margin-bottom:10px;
+  margin-bottom:15px;
 }
 
 #searchbar {
@@ -139,10 +140,11 @@ body {
 
 #searchbarerror {
   color:rgb(0, 119, 255);
-  font-size:18px;
+  font-size:20px;
   text-align: center;
   grid-row: 3 / 4;
   height:1.5em;
+  margin-bottom: 10px;
 }
 
 .searchformitem {
