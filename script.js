@@ -12,20 +12,17 @@ let currentKeyword;
 // function to show a GIF in the img element using a keyword
 const showGIF = function(keyword) {
   console.log(`showGIF function is running and the currentKeyword is ${keyword}.`);
-  // if search term is blank
-  // provide a message that says search must not be blank
-
-  // fetch gifs using translate endpoint
-  fetch(`https://api.giphy.com/v1/gifs/translate?api_key=dNW6NhV3umI5BEbDAYmtZDp44FPquBSg&s=${keyword}`, {mode: 'cors'})
+// fetch gifs using translate endpoint - this works
+  // fetch(`https://api.giphy.com/v1/gifs/translate?api_key=dNW6NhV3umI5BEbDAYmtZDp44FPquBSg&s=${keyword}`, {mode: 'cors'})
   
   // not able to get the search endpoint to work yet
-  // fetch(`https://api.giphy.com/v1/gifs/search?api_key=dNW6NhV3umI5BEbDAYmtZDp44FPquBSg&q=cats&limit=1&offset=0&rating=g&lang=en`, {mode: 'cors'})
-  .then(function(response) {
+  fetch(`https://api.giphy.com/v1/gifs/search?api_key=dNW6NhV3umI5BEbDAYmtZDp44FPquBSg&q=${keyword}&limit=1&offset=0&rating=g&lang=en`, {mode: 'cors'})
+.then(function(response) {
     return response.json();
   })
   // set the url as the img source
   .then(function(response) {
-    img.src = response.data.images.original.url;
+    img.src = response.data[0].images.original.url;
     // img.src = response.data.images.fixed_height.url;
     console.log(img.src);
   });
@@ -43,7 +40,7 @@ const handleShowMeClick = function() {
 }
 
 // When search submit button is clicked
-const handleSearchSubmitClick = function() {
+const handleSearchSubmit = function() {
   console.log('The search submit button was clicked.');
   // set current keyword with user submitted value
   currentKeyword = searchInput.value;
@@ -72,14 +69,28 @@ const searchInputHandler = function() {
   }
 }
 
+
+
+
+
+
+
 searchInput.addEventListener('input',searchInputHandler);
+
+searchInput.addEventListener('keypress',function(e){
+  if (e.key === 'Enter'){
+    console.log('enter was pressed');
+    handleSearchSubmit();
+    searchInput.blur();
+    }
+});
 
 
 
 
 
 // Add event listener to search submit button
-searchSubmitBtn.addEventListener('click', handleSearchSubmitClick);
+searchSubmitBtn.addEventListener('click', handleSearchSubmit);
 
 // when page loads
 const bodyOnloadFunction = function() {
