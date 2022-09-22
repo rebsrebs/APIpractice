@@ -8,14 +8,21 @@ let currentKeyword;
 // function to show a GIF in the img element using a keyword
 const showGIF = function(keyword) {
   console.log(`showGIF function is running and the currentKeyword is ${keyword}.`);
-  // fetch gifs with that search term
+  // if search term is blank
+  // provide a message that says search must not be blank
+
+  // fetch gifs using translate endpoint
   fetch(`https://api.giphy.com/v1/gifs/translate?api_key=dNW6NhV3umI5BEbDAYmtZDp44FPquBSg&s=${keyword}`, {mode: 'cors'})
+  
+  // not able to get the search endpoint to work yet
+  // fetch(`https://api.giphy.com/v1/gifs/search?api_key=dNW6NhV3umI5BEbDAYmtZDp44FPquBSg&q=cats&limit=1&offset=0&rating=g&lang=en`, {mode: 'cors'})
   .then(function(response) {
     return response.json();
   })
   // set the url as the img source
   .then(function(response) {
     img.src = response.data.images.original.url;
+    // img.src = response.data.images.fixed_height.url;
     console.log(img.src);
   });
 }
@@ -36,16 +43,21 @@ const handleSearchSubmitClick = function() {
   console.log('The search submit button was clicked.');
   // set current keyword with user submitted value
   currentKeyword = searchInput.value;
-  // show GIF using current keyword
-  showGIF(currentKeyword);
-  // reset event listener for show me more GIFS button
-  showMeBtn.removeEventListener('click', handleShowMeClick);
-  showMeBtn.addEventListener('click', handleShowMeClick);
-  // update text of show me more GIFS button with current keyword
-  updateShowMeBtnText(currentKeyword);
-  // reset search form
-  searchForm.reset();
+
+  // if currentKeyword is not blank
+  if (currentKeyword != '') {
+    // show GIF using current keyword
+    showGIF(currentKeyword);
+    // reset event listener for show me more GIFS button
+    showMeBtn.removeEventListener('click', handleShowMeClick);
+    showMeBtn.addEventListener('click', handleShowMeClick);
+    // update text of show me more GIFS button with current keyword
+    updateShowMeBtnText(currentKeyword);
+    // reset search form
+    searchForm.reset();
+  }
 }
+
 
 // Add event listener to search submit button
 searchSubmitBtn.addEventListener('click', handleSearchSubmitClick);
