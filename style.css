@@ -67,9 +67,14 @@ body {
 #searchsubmit {
   /* height: 2em; */
   background-color: yellow;
-  border-radius: 50px;
+  border-radius: 70px;
   padding: 4px;
+  border: none;
 }
+
+/* #searchsubmiticon {
+  padding: 4px;
+} */
 
 #searchsubmit:hover {
   background-color: rgb(127, 206, 240);
