@@ -90,9 +90,9 @@ searchInput.addEventListener('input',searchInputHandler);
 
 searchInput.addEventListener('keypress',function(e){
   if (e.key === 'Enter'){
+    e.preventDefault();
     console.log('enter was pressed');
     handleSearchSubmit();
-    searchInput.blur();
     }
 });
 
