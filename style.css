@@ -107,7 +107,7 @@ body {
 
 #gifcontainer {
   border-radius: 20px;
-  border: red 2px solid;
+  border: red 1px solid;
   width: 400px;
   height: 400px;
   display: flex;
