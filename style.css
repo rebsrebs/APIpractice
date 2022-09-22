@@ -41,13 +41,13 @@ body {
   align-items: center;
   justify-content:space-between;
   background-color: yellow;
-  padding-left: 10px;
   padding-right: 10px;
   padding-top: 1px;
   padding-bottom: 1px;
   /* border-radius: 15px; */
   border: 1px solid rgb(61, 31, 31);
   max-width: 500px;
+  margin-bottom:10px;
 }
 
 #searchbar {
@@ -55,7 +55,9 @@ body {
   min-width: 100px;
   width: 100%;
   border: none;
-  background-color: yellow;
+  /* background-color: yellow; */
+  background-color:rgba(0,0,0,0);
+  outline: none;
   font-size: 16px;
   margin-right: 5px;
   padding-left: 5px;
@@ -119,3 +121,14 @@ body {
   justify-self: center;
   padding: 10px;
 } */
+
+#searchbarwrapper:has(#searchbar:invalid){
+  outline: thick dotted red;
+}
+
+#searchbarerror {
+  color:rgb(0, 119, 255);
+  height: 2em;
+  font-size:18px;
+  text-align: center;
+}

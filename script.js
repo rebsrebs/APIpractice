@@ -1,9 +1,13 @@
 const searchForm = document.getElementById('searchform');
 const searchInput = document.getElementById('searchbar');
 const searchSubmitBtn = document.getElementById('searchsubmit');
+const searchBarError = document.getElementById('searchbarerror');
 const img = document.getElementById('imgGIF');
 const showMeBtn = document.getElementById('showmebtn');
 let currentKeyword;
+
+
+
 
 // function to show a GIF in the img element using a keyword
 const showGIF = function(keyword) {
@@ -46,6 +50,7 @@ const handleSearchSubmitClick = function() {
 
   // if currentKeyword is not blank
   if (currentKeyword != '') {
+    searchBarError.textContent='';
     // show GIF using current keyword
     showGIF(currentKeyword);
     // reset event listener for show me more GIFS button
@@ -55,8 +60,22 @@ const handleSearchSubmitClick = function() {
     updateShowMeBtnText(currentKeyword);
     // reset search form
     searchForm.reset();
+  } else {
+    searchBarError.textContent = "Search cannot be blank.";
   }
 }
+
+const searchInputHandler = function() {
+  currentKeyword = searchInput.value;
+  if (currentKeyword != '') {
+    searchBarError.textContent='';
+  }
+}
+
+searchInput.addEventListener('input',searchInputHandler);
+
+
+
 
 
 // Add event listener to search submit button
