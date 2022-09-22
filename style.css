@@ -16,15 +16,16 @@ body {
   height: 100vh;
 }
 
-#searchform, #gifcontainer, #showmebtn {
+#gifcontainer, #showmebtn {
   margin-bottom: var(--margin-bottom);
 }
 
 .searchform {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: auto auto;
+  grid-template-rows: auto auto auto;
   padding: 10px;
+  /* background-color:rgb(196, 226, 196); */
 }
 
 #searchbarlabel {
@@ -128,7 +129,23 @@ body {
 
 #searchbarerror {
   color:rgb(0, 119, 255);
-  height: 2em;
   font-size:18px;
   text-align: center;
+  grid-row: 3 / 4;
+  height:1.5em;
+}
+
+.searchformitem {
+  /* background-color:pink; */
+  text-align: center;
+  padding: 2px;
+}
+
+.flexwrapper {
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  align-content:center;
+  justify-items: center;
+  /* background-color:red; */
 }

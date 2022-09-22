@@ -12,13 +12,15 @@
     <!-- label for search bar -->
     <label id="searchbarlabel" for="search" class="searchformitem">What kind of GIF do you want to see?</label>
     <!-- search bar wrapper -->
-    <div id="searchbarwrapper">
+    <div id="searchbarwrapper" class="searchformitem">
       <!-- search bar input -->
-      <input type="text" class="searchformitem" id="searchbar" placeholder="Enter search term." required />
+      <input type="text"  id="searchbar" placeholder="Enter search term." required />
       <!-- search bar submit button -->
       <img src="./images/search_blue.svg" alt="Submit Search" id="searchsubmit">
     </div>
-    <p id="searchbarerror"></p>
+    <div class="flexwrapper">
+      <p id="searchbarerror" class="searchformitem"></p>
+    </div>
   </form>
   
   <div id="gifcontainer">
