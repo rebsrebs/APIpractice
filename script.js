@@ -7,22 +7,27 @@ const showMeBtn = document.getElementById('showmebtn');
 let currentKeyword;
 
 
-
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+}
 
 // function to show a GIF in the img element using a keyword
 const showGIF = function(keyword) {
   console.log(`showGIF function is running and the currentKeyword is ${keyword}.`);
+  const index = getRandomInt(9);
+  console.log(`index is ${index}`);
+
 // fetch gifs using translate endpoint - this works
   // fetch(`https://api.giphy.com/v1/gifs/translate?api_key=dNW6NhV3umI5BEbDAYmtZDp44FPquBSg&s=${keyword}`, {mode: 'cors'})
   
   // not able to get the search endpoint to work yet
-  fetch(`https://api.giphy.com/v1/gifs/search?api_key=dNW6NhV3umI5BEbDAYmtZDp44FPquBSg&q=${keyword}&limit=1&offset=0&rating=g&lang=en`, {mode: 'cors'})
+  fetch(`https://api.giphy.com/v1/gifs/search?api_key=dNW6NhV3umI5BEbDAYmtZDp44FPquBSg&q=${keyword}&limit=9&offset=0&rating=g&lang=en`, {mode: 'cors'})
 .then(function(response) {
     return response.json();
   })
   // set the url as the img source
   .then(function(response) {
-    img.src = response.data[0].images.original.url;
+    img.src = response.data[index].images.original.url;
     // img.src = response.data.images.fixed_height.url;
     console.log(img.src);
   })
