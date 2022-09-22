@@ -27,8 +27,7 @@ const showGIF = function(keyword) {
   })
   // set the url as the img source
   .then(function(response) {
-    img.src = response.data[index].images.original.url;
-    // img.src = response.data.images.fixed_height.url;
+    img.src = response.data[index].images.fixed_height.url;
     console.log(img.src);
   })
   .catch(function(err) {

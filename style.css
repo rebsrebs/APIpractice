@@ -105,8 +105,8 @@ body {
 #gifcontainer {
   border-radius: 20px;
   border: red 2px solid;
-  width: 600px;
-  height: 600px;
+  width: 400px;
+  height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
