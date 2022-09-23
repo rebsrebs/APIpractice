@@ -5,6 +5,7 @@ const searchBarError = document.getElementById('searchbarerror');
 const img = document.getElementById('imgGIF');
 const showMeBtn = document.getElementById('showmebtn');
 let currentKeyword;
+let searchError;
 
 
 function getRandomInt(max) {
@@ -33,6 +34,7 @@ const showGIF = function(keyword) {
   .catch(function(err) {
     console.log(err);
     searchBarError.textContent = 'Not found. Please try another search term.';
+    searchError == true;
   });
 }
 
@@ -59,17 +61,24 @@ const handleSearchSubmit = function() {
   if (currentKeyword != '') {
     searchBarError.textContent='';
     // show GIF using current keyword
+    // need to make this a promise, so that it waits to finish before checking for searchError status.
+    // having trouble figuring out how to apply this to other things.
     showGIF(currentKeyword);
-    // reset event listener for show me more GIFS button
-    showMeBtn.removeEventListener('click', handleShowMeClick);
-    showMeBtn.addEventListener('click', handleShowMeClick);
-    // update text of show me more GIFS button with current keyword
-    updateShowMeBtnText(currentKeyword);
+    
+    if (searchError == false) {
+        // reset event listener for show me more GIFS button
+        showMeBtn.removeEventListener('click', handleShowMeClick);
+        showMeBtn.addEventListener('click', handleShowMeClick);
+        // update text of show me more GIFS button with current keyword
+        updateShowMeBtnText(currentKeyword);
+    } ;
+
     // reset search form
     searchForm.reset();
   } else {
     searchBarError.textContent = "Search cannot be blank!";
   }
+  searchError == false;
 }
 
 const searchInputHandler = function() {
