@@ -5,80 +5,74 @@ const searchBarError = document.getElementById('searchbarerror');
 const img = document.getElementById('imgGIF');
 const showMeBtn = document.getElementById('showmebtn');
 let currentKeyword;
-let searchError;
-
+let whichButton = '';
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
-// function to show a GIF in the img element using a keyword
-const showGIF = function(keyword) {
-  console.log(`showGIF function is running and the currentKeyword is ${keyword}.`);
-  const index = getRandomInt(9);
-  console.log(`index is ${index}`);
+// Function to update text of show me more button
+const updateShowMeBtnText = function(keyword) {
+  showMeBtn.textContent= `Show me another ${keyword} GIF!`;
+}
 
-// fetch gifs using translate endpoint - this works
-  // fetch(`https://api.giphy.com/v1/gifs/translate?api_key=dNW6NhV3umI5BEbDAYmtZDp44FPquBSg&s=${keyword}`, {mode: 'cors'})
-  
-  // not able to get the search endpoint to work yet
+// Function to show a GIF in the img element using a keyword
+const showGIF = function(keyword) {
+  // generate random index zero through 8
+  const index = getRandomInt(9);
+  // search GIPHY with keyword
   fetch(`https://api.giphy.com/v1/gifs/search?api_key=dNW6NhV3umI5BEbDAYmtZDp44FPquBSg&q=${keyword}&limit=9&offset=0&rating=g&lang=en`, {mode: 'cors'})
-.then(function(response) {
+  .then(function(response) {
     return response.json();
   })
   // set the url as the img source
   .then(function(response) {
     img.src = response.data[index].images.fixed_height.url;
     console.log(img.src);
+    console.log(whichButton);
+    if (whichButton === 'searchbtn') {
+      showMeBtn.removeEventListener('click', handleShowMeClick);
+      showMeBtn.addEventListener('click', handleShowMeClick);
+      console.log(`We are about to update the show button with currentKeyword ${currentKeyword}`)
+      updateShowMeBtnText(currentKeyword);
+      whichButton = '';
+    }
   })
   .catch(function(err) {
     console.log(err);
     searchBarError.textContent = 'Not found. Please try another search term.';
-    searchError == true;
+    if (whichButton === 'search') {
+      showMeBtn.textContent = 'Please try a new search.'
+    }
   });
 }
-
-
-
-// function to update text of show me more button
-const updateShowMeBtnText = function(keyword) {
-  showMeBtn.textContent= `Show me another ${keyword} GIF!`;
-}
+// End function showGIF
 
 // When show me more GIFS button is clicked
 const handleShowMeClick = function() {
+  // whichButton = 'morebtn';
   console.log(`show me more GIFS was clicked and the currentKeyword is ${currentKeyword}.`);
   showGIF(currentKeyword);
 }
 
 // When search submit button is clicked
 const handleSearchSubmit = function() {
+  whichButton = 'searchbtn';
   console.log('The search submit button was clicked.');
   // set current keyword with user submitted value
   currentKeyword = searchInput.value;
-
+  console.log(currentKeyword);
   // if currentKeyword is not blank
   if (currentKeyword != '') {
+    // remove any error messages
     searchBarError.textContent='';
-    // show GIF using current keyword
-    // need to make this a promise, so that it waits to finish before checking for searchError status.
-    // having trouble figuring out how to apply this to other things.
-    showGIF(currentKeyword);
-    
-    if (searchError == false) {
-        // reset event listener for show me more GIFS button
-        showMeBtn.removeEventListener('click', handleShowMeClick);
-        showMeBtn.addEventListener('click', handleShowMeClick);
-        // update text of show me more GIFS button with current keyword
-        updateShowMeBtnText(currentKeyword);
-    } ;
-
+    // get a GIF and show it
+    showGIF(currentKeyword)
     // reset search form
     searchForm.reset();
   } else {
     searchBarError.textContent = "Search cannot be blank!";
   }
-  searchError == false;
 }
 
 const searchInputHandler = function() {
@@ -88,14 +82,9 @@ const searchInputHandler = function() {
   }
 }
 
-
-
-
-
-
-
 searchInput.addEventListener('input',searchInputHandler);
 
+// If enter is pushed, don't reload page, handle the search submit
 searchInput.addEventListener('keypress',function(e){
   if (e.key === 'Enter'){
     e.preventDefault();
@@ -103,10 +92,6 @@ searchInput.addEventListener('keypress',function(e){
     handleSearchSubmit();
     }
 });
-
-
-
-
 
 // Add event listener to search submit button
 searchSubmitBtn.addEventListener('click', handleSearchSubmit);
