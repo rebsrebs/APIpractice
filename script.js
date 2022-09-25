@@ -3,7 +3,7 @@ const searchInput = document.getElementById('searchbar');
 const searchSubmitBtn = document.getElementById('searchsubmit');
 const searchBarError = document.getElementById('searchbarerror');
 const img = document.getElementById('imgGIF');
-const showMeBtn = document.getElementById('showmebtn');
+const showMeAnotherBtn = document.getElementById('showmeanotherbtn');
 let currentKeyword;
 let whichButton = '';
 
@@ -12,8 +12,8 @@ function getRandomInt(max) {
 }
 
 // Function to update text of show me more button
-const updateShowMeBtnText = function(keyword) {
-  showMeBtn.textContent= `Show me another ${keyword} GIF!`;
+const updateShowMeAnotherBtnText = function(keyword) {
+  showMeAnotherBtn.textContent= `Show me another ${keyword} GIF!`;
 }
 
 // Function to show a GIF in the img element using a keyword
@@ -31,10 +31,10 @@ const showGIF = function(keyword) {
     console.log(img.src);
     console.log(whichButton);
     if (whichButton === 'searchbtn') {
-      showMeBtn.removeEventListener('click', handleShowMeClick);
-      showMeBtn.addEventListener('click', handleShowMeClick);
+      showMeAnotherBtn.removeEventListener('click', handleShowMeAnotherClick);
+      showMeAnotherBtn.addEventListener('click', handleShowMeAnotherClick);
       console.log(`We are about to update the show button with currentKeyword ${currentKeyword}`)
-      updateShowMeBtnText(currentKeyword);
+      updateShowMeAnotherBtnText(currentKeyword);
       whichButton = '';
     }
   })
@@ -42,14 +42,14 @@ const showGIF = function(keyword) {
     console.log(err);
     searchBarError.textContent = 'Not found. Please try another search term.';
     if (whichButton === 'search') {
-      showMeBtn.textContent = 'Please try a new search.'
+      showMeAnotherBtn.textContent = 'Please try a new search.'
     }
   });
 }
 // End function showGIF
 
 // When show me more GIFS button is clicked
-const handleShowMeClick = function() {
+const handleShowMeAnotherClick = function() {
   // whichButton = 'morebtn';
   console.log(`show me more GIFS was clicked and the currentKeyword is ${currentKeyword}.`);
   showGIF(currentKeyword);
@@ -101,8 +101,8 @@ const bodyOnloadFunction = function() {
   console.log('Page loaded.');
   currentKeyword = 'cats';
   showGIF(currentKeyword);
-  updateShowMeBtnText(currentKeyword);
-  showMeBtn.addEventListener('click', handleShowMeClick);
+  updateShowMeAnotherBtnText(currentKeyword);
+  showMeAnotherBtn.addEventListener('click', handleShowMeAnotherClick);
 }
 
 window.onload = bodyOnloadFunction();
