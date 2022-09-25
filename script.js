@@ -5,53 +5,58 @@ const searchBarError = document.getElementById('searchbarerror');
 const img = document.getElementById('imgGIF');
 const showMeAnotherBtn = document.getElementById('showmeanotherbtn');
 let currentKeyword;
+let oldKeyword;
 let whichButton = '';
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
-// Function to update text of show me more button
+// Function to update text of showMeAnother button
 const updateShowMeAnotherBtnText = function(keyword) {
   showMeAnotherBtn.textContent= `Show me another ${keyword} GIF!`;
 }
 
 // Function to show a GIF in the img element using a keyword
 const showGIF = function(keyword) {
-  // generate random index zero through 8
+  // generate random index (0-8)
   const index = getRandomInt(9);
   // search GIPHY with keyword
   fetch(`https://api.giphy.com/v1/gifs/search?api_key=dNW6NhV3umI5BEbDAYmtZDp44FPquBSg&q=${keyword}&limit=9&offset=0&rating=g&lang=en`, {mode: 'cors'})
   .then(function(response) {
     return response.json();
   })
-  // set the url as the img source
+  // set the URL as the img source
   .then(function(response) {
     img.src = response.data[index].images.fixed_height.url;
     console.log(img.src);
     console.log(whichButton);
     if (whichButton === 'searchbtn') {
+      console.log('this is happening')
       showMeAnotherBtn.removeEventListener('click', handleShowMeAnotherClick);
       showMeAnotherBtn.addEventListener('click', handleShowMeAnotherClick);
-      console.log(`We are about to update the show button with currentKeyword ${currentKeyword}`)
-      updateShowMeAnotherBtnText(currentKeyword);
+      // updateShowMeAnotherBtnText(currentKeyword);
+      updateShowMeAnotherBtnText(keyword);
       whichButton = '';
     }
   })
   .catch(function(err) {
     console.log(err);
     searchBarError.textContent = 'Not found. Please try another search term.';
-    if (whichButton === 'search') {
-      showMeAnotherBtn.textContent = 'Please try a new search.'
-    }
+    console.log(`oldKeyword was ${oldKeyword}`);
+    currentKeyword = oldKeyword;
+    // if (whichButton === 'searchbtn') {
+    //   showMeAnotherBtn.textContent = 'Please try a new search.'
+    //   whichButton = '';
+    // }
   });
 }
 // End function showGIF
 
-// When show me more GIFS button is clicked
+// When showMeAnother button is clicked
 const handleShowMeAnotherClick = function() {
-  // whichButton = 'morebtn';
-  console.log(`show me more GIFS was clicked and the currentKeyword is ${currentKeyword}.`);
+  // whichButton = 'anotherbtn';
+  console.log(`ShowMeAnother button was clicked and the currentKeyword is ${currentKeyword}.`);
   showGIF(currentKeyword);
 }
 
@@ -59,7 +64,12 @@ const handleShowMeAnotherClick = function() {
 const handleSearchSubmit = function() {
   whichButton = 'searchbtn';
   console.log('The search submit button was clicked.');
+  // save previous keyword in case this search doesn't work out
+  // this must happen first:
+  console.log(`oldKeyword will now become ${currentKeyword}`);
+  oldKeyword = currentKeyword;
   // set current keyword with user submitted value
+  console.log(`currentKeyword will now become ${searchInput.value}`);
   currentKeyword = searchInput.value;
   console.log(currentKeyword);
   // if currentKeyword is not blank
@@ -76,8 +86,8 @@ const handleSearchSubmit = function() {
 }
 
 const searchInputHandler = function() {
-  currentKeyword = searchInput.value;
-  if (currentKeyword != '') {
+    let inputSoFar = searchInput.value;
+  if (inputSoFar != '') {
     searchBarError.textContent='';
   }
 }
