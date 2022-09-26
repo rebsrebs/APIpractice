@@ -17,40 +17,65 @@ const updateShowMeAnotherBtnText = function(keyword) {
   showMeAnotherBtn.textContent= `Show me another ${keyword} GIF!`;
 }
 
-// Function to show a GIF in the img element using a keyword
+// NEW Function to show a GIF in the img element using a keyword
 const showGIF = function(keyword) {
   // generate random index (0-8)
   const index = getRandomInt(9);
   // search GIPHY with keyword
-  fetch(`https://api.giphy.com/v1/gifs/search?api_key=dNW6NhV3umI5BEbDAYmtZDp44FPquBSg&q=${keyword}&limit=9&offset=0&rating=g&lang=en`, {mode: 'cors'})
-  .then(function(response) {
-    return response.json();
-  })
-  // set the URL as the img source
-  .then(function(response) {
-    img.src = response.data[index].images.fixed_height.url;
-    console.log(img.src);
-    console.log(whichButton);
-    if (whichButton === 'searchbtn') {
-      console.log('this is happening')
-      showMeAnotherBtn.removeEventListener('click', handleShowMeAnotherClick);
-      showMeAnotherBtn.addEventListener('click', handleShowMeAnotherClick);
-      // updateShowMeAnotherBtnText(currentKeyword);
-      updateShowMeAnotherBtnText(keyword);
-      whichButton = '';
-    }
-  })
-  .catch(function(err) {
-    console.log(err);
+
+  async function getGIFs() {
+    try {
+      const response = await   fetch(`https://api.giphy.com/v1/gifs/search?api_key=dNW6NhV3umI5BEbDAYmtZDp44FPquBSg&q=${keyword}&limit=9&offset=0&rating=g&lang=en`, {mode: 'cors'});
+      const gifData = await response.json();
+      img.src = gifData.data[index].images.fixed_height.url;
+      if (whichButton === 'searchbtn') {
+        console.log('this is happening')
+        showMeAnotherBtn.removeEventListener('click', handleShowMeAnotherClick);
+        showMeAnotherBtn.addEventListener('click', handleShowMeAnotherClick);
+        updateShowMeAnotherBtnText(keyword);
+        whichButton = '';
+      }
+    } catch (err) {
+      console.log(err);
     searchBarError.textContent = 'Not found. Please try another search term.';
     console.log(`oldKeyword was ${oldKeyword}`);
     currentKeyword = oldKeyword;
-    // if (whichButton === 'searchbtn') {
-    //   showMeAnotherBtn.textContent = 'Please try a new search.'
-    //   whichButton = '';
-    // }
-  });
+    }
+  }
+  getGIFs();
 }
+// End NEW function showGIF
+
+// OLD version using promises
+// Function to show a GIF in the img element using a keyword
+// const showGIFold = function(keyword) {
+//   // generate random index (0-8)
+//   const index = getRandomInt(9);
+//   // search GIPHY with keyword
+//   fetch(`https://api.giphy.com/v1/gifs/search?api_key=dNW6NhV3umI5BEbDAYmtZDp44FPquBSg&q=${keyword}&limit=9&offset=0&rating=g&lang=en`, {mode: 'cors'})
+//   .then(function(response) {
+//     return response.json();
+//   })
+//   // set the URL as the img source
+//   .then(function(response) {
+//     img.src = response.data[index].images.fixed_height.url;
+//     console.log(img.src);
+//     console.log(whichButton);
+//     if (whichButton === 'searchbtn') {
+//       console.log('this is happening')
+//       showMeAnotherBtn.removeEventListener('click', handleShowMeAnotherClick);
+//       showMeAnotherBtn.addEventListener('click', handleShowMeAnotherClick);
+//       updateShowMeAnotherBtnText(keyword);
+//       whichButton = '';
+//     }
+//   })
+//   .catch(function(err) {
+//     console.log(err);
+//     searchBarError.textContent = 'Not found. Please try another search term.';
+//     console.log(`oldKeyword was ${oldKeyword}`);
+//     currentKeyword = oldKeyword;
+//   });
+// }
 // End function showGIF
 
 // When showMeAnother button is clicked
