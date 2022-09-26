@@ -107,6 +107,8 @@ const handleSearchSubmit = function() {
     // reset search form
     searchForm.reset();
   } else {
+    console.log(`currentKeyword is ${currentKeyword}`)
+    currentKeyword = oldKeyword;
     searchBarError.textContent = "Search cannot be blank!";
   }
 }
