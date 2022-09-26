@@ -58,6 +58,7 @@ const handleShowMeAnotherClick = function() {
   // whichButton = 'anotherbtn';
   console.log(`ShowMeAnother button was clicked and the currentKeyword is ${currentKeyword}.`);
   showGIF(currentKeyword);
+  searchBarError.textContent = '';
 }
 
 // When search submit button is clicked
